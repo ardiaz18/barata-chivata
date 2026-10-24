@@ -36,7 +36,9 @@ export function fechaLarga(iso: string): string {
     day: "numeric",
     month: "long",
     timeZone: "UTC",
-  }).format(new Date(`${iso}T12:00:00Z`));
+  })
+    .format(new Date(`${iso}T12:00:00Z`))
+    .replace(",", "");
 }
 
 /** "12" o "12:30" para usar en frases: "de 12 a 15 h". */
