@@ -55,51 +55,6 @@
   color: var(--sol-ink);
 }
 
-/* Marcadores de Google Maps: el contenido se ancla por abajo y al centro */
-.gmapa-precio {
-  display: inline-block;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: var(--bg);
-  color: var(--ink);
-  border: 2px solid var(--ink);
-  font: 600 14px/1 var(--text);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: transform 150ms var(--ease);
-}
-
-.gmapa-precio:hover {
-  transform: scale(1.08);
-}
-
-.gmapa-precio.mejor {
-  background: var(--barato);
-  border-color: var(--barato);
-  color: #fff;
-  font-size: 16px;
-}
-
-.gmapa-tu {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--sol);
-  border: 3px solid #22201c;
-  font: 800 14px/1 var(--display);
-  color: #22201c;
-}
-
-.gm-style .gm-style-iw-c {
-  font-family: var(--text);
-  font-size: 15px;
-  line-height: 1.45;
-  color: #22201c;
-}
-
 .leaflet-container {
   font-family: var(--text);
 }
