@@ -1,0 +1,70 @@
+.portada {
+  display: grid;
+  gap: 40px;
+  padding-top: clamp(24px, 5vw, 64px);
+}
+
+.portada h1 {
+  font-size: var(--step-hero);
+  max-width: 13ch;
+}
+
+.portada-lead {
+  margin-top: 28px;
+  font-size: var(--step-lead);
+  max-width: 34ch;
+}
+
+.portada-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.portada-cabra {
+  display: grid;
+  justify-items: center;
+  gap: 20px;
+}
+
+.ahora {
+  width: min(100%, 420px);
+  padding: 24px 28px;
+  background: var(--surface);
+  border-radius: var(--radius);
+}
+
+.ahora-etiqueta {
+  color: var(--soft);
+}
+
+.ahora-precio {
+  margin-top: 4px;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.9rem, 1.4rem + 2vw, 2.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.ahora-precio span {
+  display: block;
+  font-size: var(--step-lead);
+  letter-spacing: 0;
+}
+
+.ahora-pista {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+@media (min-width: 900px) {
+  .portada {
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+    gap: 48px;
+    min-height: min(calc(100svh - 96px), 820px);
+    padding-top: 0;
+  }
+}

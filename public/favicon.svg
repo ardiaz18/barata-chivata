@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-labelledby="t">
+  <title id="t">La Chivata: cabra guiñando un ojo que te sopla dónde está barato</title>
+  <defs>
+    <style>
+      .ln { stroke: #2b2118; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { stroke: #2b2118; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    </style>
+  </defs>
+
+  <!-- pegatina -->
+  <circle cx="200" cy="200" r="190" fill="#fffaf0"/>
+  <circle cx="200" cy="200" r="172" fill="#ffc83d"/>
+
+  <!-- cuernos largos curvados hacia atrás -->
+  <path class="ln" fill="#e0b273" d="M172 104 C158 58 118 30 74 40 C64 42 60 54 70 58 C104 56 132 80 144 118 Z"/>
+  <path class="thin" d="M96 46 L104 64 M118 54 L122 74 M138 70 L138 90"/>
+  <path class="ln" fill="#e0b273" d="M232 102 C244 54 284 24 330 32 C342 34 344 46 334 52 C298 52 272 78 262 116 Z"/>
+  <path class="thin" d="M306 38 L300 58 M284 46 L282 66 M266 62 L268 82"/>
+
+  <!-- orejas caídas hacia los lados -->
+  <path class="ln" fill="#fff3dc" d="M130 146 C98 132 60 140 38 166 C64 182 102 182 134 170 Z"/>
+  <path fill="#f6b8a8" d="M124 154 C100 148 76 154 60 166 C80 174 104 174 126 166 Z"/>
+  <path class="ln" fill="#fff3dc" d="M270 146 C302 132 340 140 362 166 C336 182 298 182 266 170 Z"/>
+  <path fill="#f6b8a8" d="M276 154 C300 148 324 154 340 166 C320 174 296 174 274 166 Z"/>
+
+  <!-- cabeza alargada, de cabra -->
+  <path class="ln" fill="#fff3dc" d="M200 92 C246 92 274 122 274 166 C274 206 262 238 246 266 C234 288 218 302 200 302 C182 302 166 288 154 266 C138 238 126 206 126 166 C126 122 154 92 200 92 Z"/>
+
+  <!-- tupé despeinado -->
+  <path class="ln" fill="#fff3dc" d="M164 106 C148 82 160 62 178 80 C172 52 196 44 204 74 C212 46 238 50 230 82 C252 68 266 90 240 110 C218 98 184 96 164 106 Z"/>
+
+  <!-- cejas locas, a distinta altura -->
+  <path class="thin" d="M144 138 C154 124 174 122 186 132"/>
+  <path class="thin" d="M218 150 C230 142 248 142 258 150"/>
+
+  <!-- ojo desorbitado -->
+  <circle class="ln" fill="#ffffff" cx="166" cy="172" r="28"/>
+  <circle cx="178" cy="164" r="9" fill="#2b2118"/>
+  <circle cx="181" cy="160" r="3" fill="#ffffff"/>
+
+  <!-- guiño -->
+  <g class="wink">
+    <path class="thin" d="M216 176 C226 164 246 164 256 176"/>
+    <path class="thin" d="M218 184 L210 190 M254 182 L262 188"/>
+  </g>
+
+  <!-- mejillas -->
+  <ellipse cx="150" cy="214" rx="12" ry="8" fill="#f6b8a8"/>
+  <ellipse cx="252" cy="212" rx="12" ry="8" fill="#f6b8a8"/>
+
+  <!-- hocico estrecho -->
+  <path class="ln" fill="#f4dcbc" d="M172 218 C176 202 226 202 230 218 C236 242 224 262 201 264 C178 262 166 242 172 218 Z"/>
+  <path class="thin" d="M190 222 C192 226 196 226 198 224 M204 224 C206 226 210 226 212 222"/>
+
+  <!-- sonrisa torcida con lengua fuera -->
+  <path class="ln" fill="#5a2a22" d="M178 240 C192 252 214 252 228 236 C228 254 216 266 202 266 C188 266 178 256 178 240 Z"/>
+  <path class="ln" fill="#ff6b6b" d="M204 256 C208 248 226 250 228 258 C230 272 220 284 212 282 C204 280 202 266 204 256 Z"/>
+  <path class="thin" d="M216 258 L216 270"/>
+
+  <!-- pañuelo menta -->
+  <path class="ln" fill="#8fd6b4" d="M150 284 C176 304 226 304 252 282 L262 302 C230 330 172 330 140 304 Z"/>
+  <path class="ln" fill="#8fd6b4" d="M238 304 L264 334 L282 300 Z"/>
+
+  <!-- perilla por delante del pañuelo -->
+  <path class="ln" fill="#fff3dc" d="M188 290 C186 312 192 336 202 352 C212 336 220 312 216 290 C206 296 196 296 188 290 Z"/>
+  <path class="thin" d="M200 306 L202 330"/>
+
+  <!-- pezuña junto a la boca para chivarse -->
+  <path class="ln" fill="#fff3dc" d="M240 240 C254 226 278 228 282 246 C286 262 272 278 256 276 C242 274 232 256 240 240 Z"/>
+  <path class="ln" fill="#6b4a34" d="M256 276 C270 278 284 266 282 250 L266 250 C268 262 262 272 256 276 Z"/>
+
+  <!-- bocadillo con € -->
+  <g class="bubble">
+    <path class="ln" fill="#ffffff" d="M44 236 C44 212 62 196 86 196 C110 196 128 212 128 236 C128 260 110 276 86 276 L76 276 L56 296 L60 270 C50 264 44 252 44 236 Z"/>
+    <path fill="none" stroke="#2f8f5b" stroke-width="8" stroke-linecap="round" d="M104 216 C92 206 72 212 70 236 C72 260 92 266 104 256"/>
+    <path fill="none" stroke="#2f8f5b" stroke-width="7" stroke-linecap="round" d="M60 230 L92 230 M60 244 L90 244"/>
+  </g>
+</svg>

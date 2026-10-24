@@ -1,0 +1,31 @@
+.hist-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 28px;
+}
+
+.hist-fecha {
+  font-weight: 600;
+  font-size: var(--step-lead);
+}
+
+.hist-fecha::first-letter {
+  text-transform: uppercase;
+}
+
+.hist-barra {
+  height: 14px;
+  margin: 10px 0;
+  background: var(--surface);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.hist-barra span {
+  display: block;
+  height: 100%;
+  background: var(--sol);
+  border-radius: 999px;
+}

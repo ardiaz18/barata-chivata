@@ -1,0 +1,303 @@
+/* Barata Chivata: amable, de barrio, con la cabra de protagonista.
+   Un fondo de papel cálido, tinta casi negra, amarillo sol para la marca y las acciones,
+   verde para lo barato y rojo para lo caro. Sin degradados ni sombras: los planos se
+   separan con un cambio de tono. */
+:root {
+  --bg: #f6f2ea;
+  --surface: #ede6d8;
+  --surface-2: #e4dac6;
+  --ink: #22201c;
+  --soft: #5b564c;
+  --sol: #ffc83d;
+  --sol-ink: #22201c;
+  --barato: #2f8f5b;
+  --barato-bg: #d9efe2;
+  --medio: #b5892a;
+  --medio-bg: #f6e7c1;
+  --caro: #d9443a;
+  --caro-bg: #f8dcd8;
+  --menta: #8fd6b4;
+
+  --display: "Bricolage Grotesque", system-ui, sans-serif;
+  --text: "Figtree", system-ui, sans-serif;
+
+  --step-small: 0.875rem;
+  --step-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --step-lead: clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem);
+  --step-head: clamp(2rem, 1.3rem + 3vw, 3.5rem);
+  --step-hero: clamp(2.6rem, 1.2rem + 5.6vw, 5.6rem);
+
+  --radius: 22px;
+  --margin: clamp(16px, 4vw, 48px);
+  --gap-section: clamp(88px, 12vw, 176px);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c1a16;
+    --surface: #27241e;
+    --surface-2: #332f27;
+    --ink: #f6f2ea;
+    --soft: #c9c1b1;
+    --barato: #6fd29b;
+    --barato-bg: #1f3a2a;
+    --medio: #e7c069;
+    --medio-bg: #3d3420;
+    --caro: #ff7a6e;
+    --caro-bg: #44221f;
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 var(--step-body) / 1.55 var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--sol);
+  color: var(--sol-ink);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--margin);
+}
+
+.section {
+  margin-top: var(--gap-section);
+}
+
+.section-head {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.section-head h2 {
+  font-size: var(--step-head);
+}
+
+.section-head p {
+  font-size: var(--step-lead);
+  max-width: 44ch;
+}
+
+@media (min-width: 900px) {
+  .section-head {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: end;
+    gap: 48px;
+  }
+}
+
+.fuente {
+  margin-top: 20px;
+  font-size: var(--step-small);
+  color: var(--soft);
+}
+
+.fuente a {
+  color: var(--ink);
+}
+
+/* Botones: rellenos, totalmente redondos */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--sol);
+  color: var(--sol-ink);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 160ms var(--ease), background-color 160ms var(--ease);
+}
+
+.btn:hover {
+  background: #ffd45f;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn.secundario {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.btn.secundario:hover {
+  background: var(--surface-2);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* Selector de opciones tipo interruptor */
+.opciones {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 6px;
+  background: var(--surface);
+  border-radius: 26px;
+}
+
+.opciones button {
+  min-height: 40px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 160ms var(--ease);
+}
+
+.opciones button:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+
+.opciones button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.opciones button:disabled {
+  color: var(--soft);
+  cursor: not-allowed;
+}
+
+/* Etiqueta de nivel de precio: texto con color, sin cápsula decorativa */
+.nivel-barato {
+  color: var(--barato);
+}
+.nivel-medio {
+  color: var(--medio);
+}
+.nivel-caro {
+  color: var(--caro);
+}
+
+/* Entradas escalonadas */
+.aparece > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+
+.aparece.visible > * {
+  opacity: 1;
+  transform: none;
+}
+
+.aparece.visible > *:nth-child(2) {
+  transition-delay: 80ms;
+}
+.aparece.visible > *:nth-child(3) {
+  transition-delay: 160ms;
+}
+.aparece.visible > *:nth-child(4) {
+  transition-delay: 240ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .aparece > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+  }
+}
+
+.esqueleto {
+  background: var(--surface);
+  border-radius: var(--radius);
+  animation: latido 1.4s ease-in-out infinite;
+}
+
+@keyframes latido {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

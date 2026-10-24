@@ -1,0 +1,185 @@
+.gas-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.gas-fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.gas-o {
+  color: var(--soft);
+}
+
+.gas-buscar {
+  flex: 1 1 240px;
+  max-width: 420px;
+}
+
+.gas-buscar input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 2px solid var(--surface-2);
+  border-radius: 999px;
+  background: var(--bg);
+}
+
+.gas-buscar input:focus {
+  border-color: var(--ink);
+  outline: none;
+}
+
+.gas-error,
+.gas-vacio {
+  color: var(--caro);
+  font-weight: 600;
+}
+
+.gas-vacio {
+  margin-top: 32px;
+}
+
+.gas-medias {
+  margin-top: 40px;
+  padding: clamp(24px, 4vw, 48px);
+  background: var(--surface);
+  border-radius: var(--radius);
+}
+
+.gas-medias h3 {
+  font-size: clamp(1.4rem, 1.1rem + 1vw, 1.9rem);
+}
+
+.gas-medias dl {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin: 28px 0;
+}
+
+.gas-medias dt {
+  color: var(--soft);
+}
+
+.gas-medias dd {
+  margin: 4px 0 0;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 1.3rem + 2vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.gas-medias > p {
+  font-weight: 600;
+}
+
+@media (min-width: 900px) {
+  .gas-medias dl {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.gas-resultado {
+  margin-top: 40px;
+}
+
+.gas-ganadora {
+  display: grid;
+  gap: 28px;
+  padding: clamp(24px, 4vw, 48px);
+  background: var(--barato-bg);
+  border-radius: var(--radius);
+}
+
+.gas-rotulo {
+  font-weight: 600;
+  font-size: var(--step-lead);
+}
+
+.gas-precio {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(3rem, 2rem + 5vw, 6rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--barato);
+  margin: 6px 0 12px;
+}
+
+.gas-horario,
+.gas-media {
+  color: var(--soft);
+  margin-top: 6px;
+}
+
+.gas-ahorro {
+  display: grid;
+  gap: 14px;
+  align-content: end;
+  justify-items: start;
+  font-size: var(--step-lead);
+}
+
+.gas-ahorro .gas-media {
+  font-size: var(--step-body);
+}
+
+@media (min-width: 900px) {
+  .gas-ganadora {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+.gas-lista {
+  width: 100%;
+  margin-top: 16px;
+  border-collapse: collapse;
+}
+
+.gas-lista th,
+.gas-lista td {
+  padding: 14px 12px 14px 0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.gas-lista th {
+  font-weight: 600;
+}
+
+.gas-lista th span {
+  display: block;
+  font-weight: 400;
+  color: var(--soft);
+}
+
+.gas-lista tr:nth-child(odd) {
+  background: var(--surface);
+}
+
+.gas-lista tr > :first-child {
+  padding-left: 16px;
+  border-radius: 14px 0 0 14px;
+}
+
+.gas-lista tr > :last-child {
+  padding-right: 16px;
+  border-radius: 0 14px 14px 0;
+}
+
+.gas-lista .dcha {
+  text-align: right;
+  font-weight: 600;
+  font-size: var(--step-lead);
+  white-space: nowrap;
+}
+
+.gas-lista td:nth-child(2) {
+  white-space: nowrap;
+  color: var(--soft);
+}

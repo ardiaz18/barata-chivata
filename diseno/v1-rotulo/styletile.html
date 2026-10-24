@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Barata Chivata · identidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@800&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ecebe7; --surface: #e1dfd9; --ink: #38450f; --muted: #5d683a;
+    --caro: #b3261e; --led: #f2c94c;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--ink); font: 400 17px/1.5 "Public Sans", sans-serif; width: 1440px; }
+  .display { font-family: "Big Shoulders", sans-serif; font-weight: 800; text-transform: uppercase; line-height: .88; letter-spacing: -.005em; }
+  header { display: flex; align-items: center; gap: 20px; padding: 32px; }
+  header img { width: 64px; height: 64px; }
+  header .display { font-size: 40px; }
+  .hero { display: grid; grid-template-columns: 1fr 420px; gap: 32px; padding: 32px; align-items: end; }
+  .hero h1 { font-size: 168px; }
+  .hero p { font-size: 26px; max-width: 30ch; margin-top: 32px; }
+  .totem { background: var(--ink); color: var(--bg); padding: 28px 28px 36px; }
+  .totem .brand { display: flex; align-items: center; gap: 14px; }
+  .totem .brand img { width: 56px; background: var(--bg); }
+  .totem .brand span { font-size: 34px; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; background: #222a09; margin-top: 16px; padding: 10px 16px; }
+  .row .label { font-size: 30px; }
+  .row .num { font-size: 92px; color: var(--led); font-variant-numeric: tabular-nums; }
+  .totem small { display: block; margin-top: 18px; font-size: 14px; opacity: .85; }
+  .band { display: grid; grid-template-columns: repeat(6, 1fr); margin-top: 96px; }
+  .sw { height: 220px; padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; font-size: 15px; }
+  .sw b { font-weight: 600; display: block; }
+  .type { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; padding: 96px 32px; }
+  .type .display { font-size: 120px; }
+  .type p.big { font-size: 26px; }
+  .source { padding: 0 32px 96px; font-size: 20px; max-width: 70ch; }
+  .source strong { font-weight: 600; }
+  footer { background: var(--ink); color: var(--bg); padding: 40px 32px 20px; }
+  footer .cols { display: flex; gap: 96px; font-size: 15px; }
+  footer .word { font-size: 236px; margin-top: 120px; white-space: nowrap; }
+  footer .legal { font-size: 13px; margin-top: 12px; opacity: .8; }
+</style>
+</head>
+<body>
+  <header>
+    <img src="barata-chivata-logo.png" alt="Logo de Barata Chivata: cabra guiñando un ojo">
+    <span class="display">Barata Chivata</span>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1 class="display">La luz,<br>gratis a las 12</h1>
+      <p>La cabra se ha chivado: hoy de 12:00 a 15:00 la energía sale a 0 €. Pon ahí la lavadora.</p>
+    </div>
+    <div class="totem" data-ui>
+      <div class="brand"><img src="barata-chivata-logo.png" alt=""><span class="display">Precios ahora</span></div>
+      <div class="row"><span class="label display">Luz</span><span class="num display">0,00</span></div>
+      <div class="row"><span class="label display">G95</span><span class="num display">1,459</span></div>
+      <div class="row"><span class="label display">Diésel</span><span class="num display">1,389</span></div>
+      <small>€/kWh y €/litro · Red Eléctrica y Ministerio para la Transición Ecológica · 11:43</small>
+    </div>
+  </section>
+
+  <div class="band">
+    <div class="sw" style="background:#ecebe7;color:#38450f"><b>Hueso</b>#ECEBE7 · fondo</div>
+    <div class="sw" style="background:#e1dfd9;color:#38450f"><b>Hueso oscuro</b>#E1DFD9 · superficie</div>
+    <div class="sw" style="background:#38450f;color:#ecebe7"><b>Oliva</b>#38450F · tinta y barato</div>
+    <div class="sw" style="background:#5d683a;color:#ecebe7"><b>Oliva suave</b>#5D683A · secundario</div>
+    <div class="sw" style="background:#b3261e;color:#ecebe7"><b>Rojo rótulo</b>#B3261E · caro, evitar</div>
+    <div class="sw" style="background:#f2c94c;color:#38450f"><b>Led</b>#F2C94C · cifras del monolito</div>
+  </div>
+
+  <section class="type">
+    <div><span class="display">Big Shoulders 800</span><p>Rótulos, cifras y titulares. Siempre en mayúsculas, interlineado 0,88.</p></div>
+    <div><p class="big">Public Sans para todo lo que se lee: explicaciones, direcciones de gasolineras, horarios y fuentes.</p><p>16–19 px, interlineado 1,5, siempre en la tinta oliva completa.</p></div>
+  </section>
+
+  <p class="source"><strong>De dónde salen los datos.</strong> Precio de la luz PVPC: Red Eléctrica de España (REData), hora a hora. Gasolina: Ministerio para la Transición Ecológica y el Reto Demográfico, precios que cada gasolinera está obligada a comunicar. Cada cifra muestra su hora de actualización.</p>
+
+  <footer>
+    <div class="cols"><div>Luz<br>Gasolina</div><div>Cómo funciona<br>Fuentes oficiales</div><div>Un proyecto de lasapaixa.com<br>Hecho por Alicia Ruiz · aliciaruiz.es</div></div>
+    <div class="word display">Barata Chivata</div>
+    <div class="legal">Precios de la energía sin impuestos ni término de potencia. Datos abiertos de fuentes oficiales.</div>
+  </footer>
+</body>
+</html>
