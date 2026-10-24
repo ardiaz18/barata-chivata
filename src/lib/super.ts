@@ -20,7 +20,7 @@ export interface ProductoCesta {
 
 export interface DatosSuper {
   actualizado: string;
-  cadenas: Record<string, { nombre: string; web: string }>;
+  cadenas: Record<string, { nombre: string; web: string; logo?: string; logoConNombre?: boolean }>;
   categorias: Record<string, string>;
   productos: ProductoCesta[];
   evolucion: { fecha: string; totales: Record<string, number> }[];

@@ -93,5 +93,4 @@ export const APARATOS: Aparato[] = [
   { nombre: "Lavavajillas", horas: 2, kwh: 1.1 },
   { nombre: "Horno", horas: 1, kwh: 1.5 },
   { nombre: "Secadora", horas: 1.5, kwh: 2.5 },
-  { nombre: "Coche eléctrico", horas: 4, kwh: 28 },
 ];

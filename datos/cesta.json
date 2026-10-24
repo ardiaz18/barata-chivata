@@ -3,11 +3,14 @@
   "cadenas": {
     "mercadona": {
       "nombre": "Mercadona",
-      "web": "https://tienda.mercadona.es/"
+      "web": "https://tienda.mercadona.es/",
+      "logo": "logos/mercadona.png",
+      "logoConNombre": true
     },
     "consum": {
       "nombre": "Consum",
-      "web": "https://tienda.consum.es/"
+      "web": "https://tienda.consum.es/",
+      "logo": "logos/consum.png"
     }
   },
   "productos": [

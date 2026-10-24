@@ -13,6 +13,20 @@ const cantidad = (n: number, unidad: string) => {
   return `${num} ${unidad}`;
 };
 
+/** Logo de la cadena; si el logo no incluye el nombre, se escribe al lado. */
+function Cadena({ c }: { c: DatosSuper["cadenas"][string] }) {
+  if (!c.logo) return <>{c.nombre}</>;
+  const src = `${import.meta.env.BASE_URL}${c.logo}`;
+  return c.logoConNombre ? (
+    <img className="super-logo ancho" src={src} alt={c.nombre} />
+  ) : (
+    <span className="super-cadena">
+      <img className="super-logo" src={src} alt="" />
+      {c.nombre}
+    </span>
+  );
+}
+
 export function Super() {
   const [datos, setDatos] = useState<DatosSuper | null | undefined>(undefined);
   const ref = useAparece<HTMLDivElement>();
@@ -82,7 +96,7 @@ function Cesta({ datos }: { datos: DatosSuper }) {
         <dl className="super-totales">
           {orden.map((c) => (
             <div key={c} className={c === barata && diferencia >= 0.05 ? "gana" : undefined}>
-              <dt>{datos.cadenas[c].nombre}</dt>
+              <dt><Cadena c={datos.cadenas[c]} /></dt>
               <dd className="num">{euros(tot[c])}</dd>
             </div>
           ))}
@@ -96,7 +110,7 @@ function Cesta({ datos }: { datos: DatosSuper }) {
             <th scope="col">Producto</th>
             {cadenas.map((c) => (
               <th key={c} scope="col" className="dcha">
-                {datos.cadenas[c].nombre}
+                <Cadena c={datos.cadenas[c]} />
               </th>
             ))}
           </tr>

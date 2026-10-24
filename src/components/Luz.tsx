@@ -124,8 +124,8 @@ function DiaDeLuz({ datos, esHoy }: { datos: DiaLuz; esHoy: boolean }) {
         </tbody>
       </table>
       <p className="fuente">
-        Consumos de un uso típico: lavadora 0,9 kWh, lavavajillas 1,1, horno 1,5, secadora 2,5 y coche eléctrico 28 kWh
-        (4 h a 7 kW). Fuente de los precios:{" "}
+        Consumos de un uso típico: lavadora 0,9 kWh, lavavajillas 1,1, horno 1,5 y secadora 2,5. Fuente de los
+        precios:{" "}
         <a href="https://www.ree.es/es/apidatos" target="_blank" rel="noreferrer">
           Red Eléctrica de España
         </a>

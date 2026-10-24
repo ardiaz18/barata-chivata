@@ -161,3 +161,22 @@
   color: var(--soft);
   font-weight: 400;
 }
+
+.super-cadena {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.super-logo {
+  height: 24px;
+  width: 24px;
+  border-radius: 6px;
+  vertical-align: middle;
+}
+
+.super-logo.ancho {
+  width: auto;
+  height: 22px;
+  border-radius: 0;
+}
