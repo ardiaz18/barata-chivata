@@ -34,6 +34,10 @@ jobs:
         env:
           BOOSTSPACE_API_TOKEN: ${{ secrets.BOOSTSPACE_API_TOKEN }}
       - run: npm run build
+        env:
+          # Variables del repositorio (no secretos: la clave acaba en el navegador y se protege restringiéndola por dominio)
+          VITE_GOOGLE_MAPS_KEY: ${{ vars.GOOGLE_MAPS_KEY }}
+          VITE_GOOGLE_MAPS_MAP_ID: ${{ vars.GOOGLE_MAPS_MAP_ID }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
