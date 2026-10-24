@@ -11,6 +11,7 @@ export function Cabecera() {
       <nav aria-label="Secciones">
         <a href="#luz">Luz</a>
         <a href="#gasolina">Gasolina</a>
+        <a href="#super">Súper</a>
         <a href="#fuentes">Fuentes</a>
       </nav>
     </header>

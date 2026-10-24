@@ -53,11 +53,24 @@ export function Fuentes() {
           </article>
 
           <article>
+            <h3>El súper</h3>
+            <p>
+              No hay ninguna fuente oficial de precios de supermercado, así que la cabra mira directamente las{" "}
+              <strong>tiendas online de Mercadona y Consum</strong> cada mañana, producto a producto, y guarda lo que ve.
+            </p>
+            <p>
+              Compara 17 básicos de marca blanca del mismo tamaño. Cuando el peso no se declara igual en las dos (el atún,
+              los garbanzos), compara envase con envase. Si un producto está de oferta, cuenta la oferta.
+            </p>
+            <p>Son precios online: en la tienda física pueden ser distintos. Dia y Carrefour no permiten leer sus precios.</p>
+          </article>
+
+          <article>
             <h3>El histórico</h3>
             <p>
-              Cada noche a las 20:45 una automatización hecha en <strong>Boost.space</strong> descarga los precios de
-              Red Eléctrica para el día siguiente, calcula la mejor y la peor franja y los guarda. De ahí sale el diario
-              de la cabra.
+              Dos automatizaciones hechas en <strong>Boost.space</strong> guardan cada día los datos: a las 20:45, los
+              precios de la luz del día siguiente con su mejor y peor franja; a las 9:00, el precio de la cesta en cada
+              supermercado. De ahí salen el diario de la luz y la evolución de la cesta.
             </p>
           </article>
         </div>

@@ -12,6 +12,7 @@ Un proyecto de [lasapaixa.com](https://lasapaixa.com), hecho por [Alicia Ruiz](h
 | Precio de cada gasolinera | [Ministerio para la Transición Ecológica](https://geoportalgasolineras.es/geoportal-instalaciones/Inicio) | `scripts/build-data.mjs` lo descarga y compacta cada 30 min (la API completa pesa 12 MB). |
 | Coordenadas de cada código postal | [GeoNames](https://download.geonames.org/export/zip/) (CC BY 4.0) | El mismo script genera `codigos-postales.json`. |
 | Mapa | [OpenStreetMap](https://www.openstreetmap.org/copyright) con Leaflet | Se carga solo al mostrar resultados. |
+| Precio de la cesta del súper (17 básicos, `datos/cesta.json`) | Tiendas online de Mercadona y Consum (no hay fuente oficial) | El script lee el precio de hoy; la automatización de Boost.space `automatizaciones/cesta_super.py` lo guarda cada día a las 9:00 para la evolución. |
 | Histórico diario de la luz | Automatización en Boost.space (cada día a las 20:45) | El mismo script lo lee con el token y publica `historico.json`, sin exponer el token. |
 
 ## En local

@@ -8,7 +8,7 @@ export const eurLitro = (v: number) =>
 
 export const euros = (v: number) => {
   if (Math.abs(v) < 0.005) return "0 €";
-  const decimales = Math.abs(v) < 10 ? 2 : 0;
+  const decimales = Math.abs(v) < 100 ? 2 : 0;
   return `${v.toLocaleString("es-ES", { minimumFractionDigits: decimales, maximumFractionDigits: decimales })} €`;
 };
 

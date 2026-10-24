@@ -5,6 +5,7 @@ import { Gasolina } from "./components/Gasolina";
 import { Historico } from "./components/Historico";
 import { Luz } from "./components/Luz";
 import { Portada } from "./components/Portada";
+import { Super } from "./components/Super";
 import { fechaMadrid } from "./lib/formato";
 import { cargarLuz, type DiaLuz } from "./lib/luz";
 
@@ -25,6 +26,7 @@ export default function App() {
         <Portada hoy={hoy} />
         <Luz hoy={hoy} />
         <Gasolina />
+        <Super />
         <Historico />
         <Fuentes />
       </main>

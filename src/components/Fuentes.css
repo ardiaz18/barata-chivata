@@ -24,7 +24,7 @@
 
 @media (min-width: 900px) {
   .fuentes-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 48px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 56px 64px;
   }
 }
