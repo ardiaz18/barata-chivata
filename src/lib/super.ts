@@ -12,6 +12,7 @@ export interface PrecioTienda {
 export interface ProductoCesta {
   id: string;
   nombre: string;
+  categoria: string;
   unidad: string;
   referencia: number;
   precios: Record<string, PrecioTienda>;
@@ -20,6 +21,7 @@ export interface ProductoCesta {
 export interface DatosSuper {
   actualizado: string;
   cadenas: Record<string, { nombre: string; web: string }>;
+  categorias: Record<string, string>;
   productos: ProductoCesta[];
   evolucion: { fecha: string; totales: Record<string, number> }[];
 }
@@ -39,9 +41,9 @@ export function comparables(d: DatosSuper): ProductoCesta[] {
   return d.productos.filter((p) => cadenas.every((c) => p.precios[c]));
 }
 
-export function totales(d: DatosSuper): Record<string, number> {
+export function totales(lista: ProductoCesta[]): Record<string, number> {
   const out: Record<string, number> = {};
-  for (const p of comparables(d)) for (const [c, v] of Object.entries(p.precios)) out[c] = (out[c] ?? 0) + v.precioCesta;
+  for (const p of lista) for (const [c, v] of Object.entries(p.precios)) out[c] = (out[c] ?? 0) + v.precioCesta;
   return out;
 }
 

@@ -7,6 +7,7 @@ import "./Super.css";
 const cantidad = (n: number, unidad: string) => {
   const num = n.toLocaleString("es-ES", { maximumFractionDigits: 2 });
   if (unidad === "kg" && n < 1) return `${Math.round(n * 1000)} g`;
+  if (unidad === "pieza") return "la pieza";
   if (unidad === "rollo") return `${num} rollos`;
   if (unidad === "docena" || unidad === "pack" || unidad === "tarro") return "";
   return `${num} ${unidad}`;
@@ -24,7 +25,10 @@ export function Super() {
     <section id="super" className="section wrap" aria-labelledby="super-titulo">
       <div className="section-head aparece" ref={ref}>
         <h2 id="super-titulo">La cesta de la cabra</h2>
-        <p>17 básicos de marca blanca, comparados cada día en Mercadona y Consum. Mismo producto, mismo tamaño.</p>
+        <p>
+          {datos ? comparables(datos).length : "Unos 30"} básicos, de la despensa a la fruta, comparados cada día en
+          Mercadona y Consum. Mismo producto, mismo tamaño.
+        </p>
       </div>
 
       {datos === undefined && <div className="esqueleto" style={{ height: 320 }} />}
@@ -35,9 +39,12 @@ export function Super() {
 }
 
 function Cesta({ datos }: { datos: DatosSuper }) {
+  const [categoria, setCategoria] = useState("todo");
   const cadenas = Object.keys(datos.cadenas);
-  const lista = comparables(datos);
-  const tot = totales(datos);
+  const todos = comparables(datos);
+  const lista = categoria === "todo" ? todos : todos.filter((p) => p.categoria === categoria);
+  const tot = totales(lista);
+  const que = categoria === "todo" ? "la cesta completa" : datos.categorias[categoria].toLowerCase();
   const orden = [...cadenas].sort((a, b) => tot[a] - tot[b]);
   const [barata, cara] = [orden[0], orden[orden.length - 1]];
   const diferencia = tot[cara] - tot[barata];
@@ -52,13 +59,21 @@ function Cesta({ datos }: { datos: DatosSuper }) {
 
   return (
     <>
+      <div className="opciones super-categorias" role="group" aria-label="Categoría">
+        {["todo", ...Object.keys(datos.categorias)].map((c) => (
+          <button key={c} aria-pressed={categoria === c} onClick={() => setCategoria(c)}>
+            {c === "todo" ? "Toda la cesta" : datos.categorias[c]}
+          </button>
+        ))}
+      </div>
+
       <div className="super-veredicto">
         <p className="super-frase">
           {diferencia < 0.05 ? (
-            <>Hoy la cesta cuesta prácticamente lo mismo en las dos.</>
+            <>Hoy, en {que}, empate: cuesta prácticamente lo mismo en las dos.</>
           ) : (
             <>
-              Hoy la cesta sale más barata en <strong>{datos.cadenas[barata].nombre}</strong>: te ahorras{" "}
+              Hoy, en {que}, gana <strong>{datos.cadenas[barata].nombre}</strong>: te ahorras{" "}
               <strong className="num">{euros(diferencia)}</strong>.
             </>
           )}{" "}

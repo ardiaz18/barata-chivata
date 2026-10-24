@@ -2,6 +2,10 @@
   font-weight: 600;
 }
 
+.super-categorias {
+  margin-bottom: 24px;
+}
+
 .super-veredicto {
   display: grid;
   gap: 32px;
