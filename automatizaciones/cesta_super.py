@@ -1,4 +1,4 @@
-# Automatización diaria de Boost.space: «La cesta de la cabra».
+# Automatización diaria de Boost.space: «La cesta de la cabra» (action 5 en Boost.space).
 # Lee la cesta (datos/cesta.json del repositorio), consulta el precio de cada producto en las
 # tiendas online de Mercadona y Consum y guarda un registro por producto, cadena y día.
 # Si ya existe el registro de hoy, lo actualiza (se puede ejecutar varias veces sin duplicar).
@@ -36,7 +36,8 @@ def precio_mercadona(pid):
     j = r.json()
     pi = j["price_instructions"]
     nombre = f"{j['display_name']} ({j.get('packaging') or ''} {pi.get('unit_size') or ''} {pi.get('size_format') or ''})"
-    return float(pi["unit_price"]), bool(pi.get("price_decreased")), " ".join(nombre.split())
+    por_kilo = float(pi.get("reference_price") or pi.get("bulk_price") or 0)
+    return float(pi["unit_price"]), por_kilo, bool(pi.get("price_decreased")), " ".join(nombre.split())
 
 
 def precio_consum(pid):
@@ -49,10 +50,11 @@ def precio_consum(pid):
     j = r.json()
     ahora = datetime.datetime.now(datetime.timezone.utc).isoformat()
     vigentes = [p for p in j["priceData"]["prices"] if p.get("toDate", "9999") > ahora]
-    normal = next(p["value"]["centAmount"] for p in vigentes if p["id"] == "PRICE")
-    oferta = [p["value"]["centAmount"] for p in vigentes if p["id"] == "OFFER_PRICE"]
-    precio = min([normal, *oferta])
-    return float(precio), precio < normal, j["productData"]["description"]
+    normal = next(p["value"] for p in vigentes if p["id"] == "PRICE")
+    ofertas = [p["value"] for p in vigentes if p["id"] == "OFFER_PRICE"]
+    pagado = min([normal, *ofertas], key=lambda v: v["centAmount"])
+    oferta = pagado["centAmount"] < normal["centAmount"]
+    return float(pagado["centAmount"]), float(pagado["centUnitAmount"]), oferta, j["productData"]["description"]
 
 
 LECTORES = {"mercadona": precio_mercadona, "consum": precio_consum}
@@ -89,8 +91,10 @@ def main(input):
     def consultar(t):
         p, cadena = t
         try:
-            precio, oferta, articulo = LECTORES[cadena](p[cadena]["id"])
-            precio_cesta = round(precio / p[cadena]["cantidad"] * p["referencia"], 4)
+            precio, por_kilo, oferta, articulo = LECTORES[cadena](p[cadena]["id"])
+            # La fruta y la verdura van al peso: se compara el precio por kilo que publica la tienda.
+            unidad = por_kilo if p.get("porKilo") else precio / p[cadena]["cantidad"]
+            precio_cesta = round(unidad * p["referencia"], 4)
             return {"producto": p["id"], "nombre": p["nombre"], "cadena": cadena, "articulo": articulo,
                     "precio": precio, "precio_cesta": precio_cesta, "oferta": oferta}
         except Exception as e:  # una tienda caída no debe tumbar toda la cesta

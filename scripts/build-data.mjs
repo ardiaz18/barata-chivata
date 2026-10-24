@@ -119,6 +119,7 @@ const LECTORES = {
     const pi = j.price_instructions;
     return {
       precio: Number(pi.unit_price),
+      porKilo: Number(pi.reference_price || pi.bulk_price || 0),
       oferta: Boolean(pi.price_decreased),
       articulo: `${j.display_name} (${[j.packaging, pi.unit_size, pi.size_format].filter(Boolean).join(" ")})`,
       url: j.share_url,
@@ -132,10 +133,18 @@ const LECTORES = {
     const j = await r.json();
     const ahora = new Date().toISOString();
     const vigentes = j.priceData.prices.filter((p) => (p.toDate ?? "9999") > ahora);
-    const normal = vigentes.find((p) => p.id === "PRICE").value.centAmount;
-    const ofertas = vigentes.filter((p) => p.id === "OFFER_PRICE").map((p) => p.value.centAmount);
-    const precio = Math.min(normal, ...ofertas);
-    return { precio, oferta: precio < normal, articulo: j.productData.description, url: j.productData.url };
+    const normal = vigentes.find((p) => p.id === "PRICE").value;
+    const pagado = vigentes
+      .filter((p) => p.id === "OFFER_PRICE")
+      .map((p) => p.value)
+      .reduce((a, b) => (b.centAmount < a.centAmount ? b : a), normal);
+    return {
+      precio: pagado.centAmount,
+      porKilo: pagado.centUnitAmount,
+      oferta: pagado.centAmount < normal.centAmount,
+      articulo: j.productData.description,
+      url: j.productData.url,
+    };
   },
 };
 
@@ -151,17 +160,16 @@ async function supermercados(token) {
           .filter((c) => p[c])
           .map(async (c) => {
             try {
-              const leido = await LECTORES[c](p[c].id);
-              precios[c] = {
-                ...leido,
-                precioCesta: Math.round((leido.precio / p[c].cantidad) * p.referencia * 10000) / 10000,
-              };
+              const { porKilo, ...leido } = await LECTORES[c](p[c].id);
+              // La fruta y la verdura van al peso: se compara el precio por kilo que publica la tienda.
+              const unidad = p.porKilo ? porKilo : leido.precio / p[c].cantidad;
+              precios[c] = { ...leido, precioCesta: Math.round(unidad * p.referencia * 10000) / 10000 };
             } catch (e) {
               console.warn(`  sin precio: ${e.message}`);
             }
           }),
       );
-      return { id: p.id, nombre: p.nombre, unidad: p.unidad, referencia: p.referencia, precios };
+      return { id: p.id, nombre: p.nombre, categoria: p.categoria, unidad: p.unidad, referencia: p.referencia, precios };
     }),
   );
 
@@ -191,7 +199,13 @@ async function supermercados(token) {
       .sort((a, b) => a.fecha.localeCompare(b.fecha));
   }
 
-  return { actualizado: new Date().toISOString(), cadenas: cesta.cadenas, productos, evolucion };
+  return {
+    actualizado: new Date().toISOString(),
+    cadenas: cesta.cadenas,
+    categorias: cesta.categorias,
+    productos,
+    evolucion,
+  };
 }
 
 async function historico(token) {

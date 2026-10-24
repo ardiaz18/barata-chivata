@@ -1,43 +1,418 @@
 {
-  "_nota": "La cesta de la cabra. Cada producto se compara por su unidad: el precio de cada tienda se divide entre su cantidad (en esa unidad) y se multiplica por la cantidad de referencia de la cesta. El atún y los garbanzos se comparan por envase porque cada cadena declara el peso de forma distinta (bruto o escurrido). La leen scripts/build-data.mjs y la automatización diaria de Boost.space.",
+  "_nota": "La cesta de la cabra. Cada producto se compara por su unidad: el precio de cada tienda se divide entre su cantidad (en esa unidad) y se multiplica por la cantidad de referencia de la cesta. El atún y los garbanzos se comparan por envase porque cada cadena declara el peso de forma distinta (bruto o escurrido). La leen scripts/build-data.mjs y la automatización diaria de Boost.space. Fruta y verdura se venden al peso: con \"porKilo\" se usa el precio por kilo que publica cada tienda.",
   "cadenas": {
-    "mercadona": { "nombre": "Mercadona", "web": "https://tienda.mercadona.es/" },
-    "consum": { "nombre": "Consum", "web": "https://tienda.consum.es/" }
+    "mercadona": {
+      "nombre": "Mercadona",
+      "web": "https://tienda.mercadona.es/"
+    },
+    "consum": {
+      "nombre": "Consum",
+      "web": "https://tienda.consum.es/"
+    }
   },
   "productos": [
-    { "id": "leche", "nombre": "Leche entera", "unidad": "L", "referencia": 1,
-      "mercadona": { "id": "10380", "cantidad": 1 }, "consum": { "id": "5931", "cantidad": 1 } },
-    { "id": "huevos", "nombre": "Huevos L", "unidad": "docena", "referencia": 1,
-      "mercadona": { "id": "31504", "cantidad": 1 }, "consum": { "id": "6103", "cantidad": 1 } },
-    { "id": "aove", "nombre": "Aceite de oliva virgen extra", "unidad": "L", "referencia": 1,
-      "mercadona": { "id": "4740", "cantidad": 1 }, "consum": { "id": "11369", "cantidad": 1 } },
-    { "id": "girasol", "nombre": "Aceite de girasol", "unidad": "L", "referencia": 1,
-      "mercadona": { "id": "4040", "cantidad": 1 }, "consum": { "id": "15627", "cantidad": 1 } },
-    { "id": "arroz", "nombre": "Arroz redondo", "unidad": "kg", "referencia": 1,
-      "mercadona": { "id": "5044", "cantidad": 1 }, "consum": { "id": "5458", "cantidad": 1 } },
-    { "id": "macarrones", "nombre": "Macarrones", "unidad": "kg", "referencia": 0.5,
-      "mercadona": { "id": "6326", "cantidad": 0.5 }, "consum": { "id": "5742", "cantidad": 0.5 } },
-    { "id": "molde", "nombre": "Pan de molde blanco", "unidad": "kg", "referencia": 0.46,
-      "mercadona": { "id": "13810", "cantidad": 0.46 }, "consum": { "id": "5841", "cantidad": 0.46 } },
-    { "id": "tomate", "nombre": "Tomate frito (frasco)", "unidad": "kg", "referencia": 0.56,
-      "mercadona": { "id": "17108", "cantidad": 0.56 }, "consum": { "id": "5499", "cantidad": 0.55 } },
-    { "id": "atun", "nombre": "Atún claro en aceite de girasol (pack de 3)", "unidad": "pack", "referencia": 1,
-      "mercadona": { "id": "18092", "cantidad": 1 }, "consum": { "id": "5642", "cantidad": 1 } },
-    { "id": "garbanzos", "nombre": "Garbanzos cocidos (tarro)", "unidad": "tarro", "referencia": 1,
-      "mercadona": { "id": "26029", "cantidad": 1 }, "consum": { "id": "5585", "cantidad": 1 } },
-    { "id": "azucar", "nombre": "Azúcar blanco", "unidad": "kg", "referencia": 1,
-      "mercadona": { "id": "19897", "cantidad": 1 }, "consum": { "id": "5245", "cantidad": 1 } },
-    { "id": "harina", "nombre": "Harina de trigo", "unidad": "kg", "referencia": 1,
-      "mercadona": { "id": "29100", "cantidad": 1 }, "consum": { "id": "34091", "cantidad": 1 } },
-    { "id": "cafe", "nombre": "Café molido natural", "unidad": "kg", "referencia": 0.25,
-      "mercadona": { "id": "11172", "cantidad": 0.25 }, "consum": { "id": "5627", "cantidad": 0.25 } },
-    { "id": "yogur", "nombre": "Yogur natural", "unidad": "kg", "referencia": 0.5,
-      "mercadona": { "id": "22313", "cantidad": 0.75 }, "consum": { "id": "23824", "cantidad": 0.5 } },
-    { "id": "agua", "nombre": "Agua mineral (6 botellas de 1,5 L)", "unidad": "L", "referencia": 9,
-      "mercadona": { "id": "28472", "cantidad": 1.5 }, "consum": { "id": "5885", "cantidad": 1.5 } },
-    { "id": "papel", "nombre": "Papel higiénico doble capa", "unidad": "rollo", "referencia": 12,
-      "mercadona": { "id": "47835", "cantidad": 12 }, "consum": { "id": "6804", "cantidad": 12 } },
-    { "id": "lavavajillas", "nombre": "Lavavajillas a mano", "unidad": "L", "referencia": 1.3,
-      "mercadona": { "id": "42441", "cantidad": 1.3 }, "consum": { "id": "33328", "cantidad": 1.3 } }
-  ]
+    {
+      "id": "aove",
+      "nombre": "Aceite de oliva virgen extra",
+      "unidad": "L",
+      "referencia": 1,
+      "mercadona": {
+        "id": "4740",
+        "cantidad": 1
+      },
+      "consum": {
+        "id": "11369",
+        "cantidad": 1
+      },
+      "categoria": "despensa"
+    },
+    {
+      "id": "girasol",
+      "nombre": "Aceite de girasol",
+      "unidad": "L",
+      "referencia": 1,
+      "mercadona": {
+        "id": "4040",
+        "cantidad": 1
+      },
+      "consum": {
+        "id": "15627",
+        "cantidad": 1
+      },
+      "categoria": "despensa"
+    },
+    {
+      "id": "arroz",
+      "nombre": "Arroz redondo",
+      "unidad": "kg",
+      "referencia": 1,
+      "mercadona": {
+        "id": "5044",
+        "cantidad": 1
+      },
+      "consum": {
+        "id": "5458",
+        "cantidad": 1
+      },
+      "categoria": "despensa"
+    },
+    {
+      "id": "macarrones",
+      "nombre": "Macarrones",
+      "unidad": "kg",
+      "referencia": 0.5,
+      "mercadona": {
+        "id": "6326",
+        "cantidad": 0.5
+      },
+      "consum": {
+        "id": "5742",
+        "cantidad": 0.5
+      },
+      "categoria": "despensa"
+    },
+    {
+      "id": "molde",
+      "nombre": "Pan de molde blanco",
+      "unidad": "kg",
+      "referencia": 0.46,
+      "mercadona": {
+        "id": "13810",
+        "cantidad": 0.46
+      },
+      "consum": {
+        "id": "5841",
+        "cantidad": 0.46
+      },
+      "categoria": "despensa"
+    },
+    {
+      "id": "tomate",
+      "nombre": "Tomate frito (frasco)",
+      "unidad": "kg",
+      "referencia": 0.56,
+      "mercadona": {
+        "id": "17108",
+        "cantidad": 0.56
+      },
+      "consum": {
+        "id": "5499",
+        "cantidad": 0.55
+      },
+      "categoria": "despensa"
+    },
+    {
+      "id": "atun",
+      "nombre": "Atún claro en aceite de girasol (pack de 3)",
+      "unidad": "pack",
+      "referencia": 1,
+      "mercadona": {
+        "id": "18092",
+        "cantidad": 1
+      },
+      "consum": {
+        "id": "5642",
+        "cantidad": 1
+      },
+      "categoria": "despensa"
+    },
+    {
+      "id": "garbanzos",
+      "nombre": "Garbanzos cocidos (tarro)",
+      "unidad": "tarro",
+      "referencia": 1,
+      "mercadona": {
+        "id": "26029",
+        "cantidad": 1
+      },
+      "consum": {
+        "id": "5585",
+        "cantidad": 1
+      },
+      "categoria": "despensa"
+    },
+    {
+      "id": "azucar",
+      "nombre": "Azúcar blanco",
+      "unidad": "kg",
+      "referencia": 1,
+      "mercadona": {
+        "id": "19897",
+        "cantidad": 1
+      },
+      "consum": {
+        "id": "5245",
+        "cantidad": 1
+      },
+      "categoria": "despensa"
+    },
+    {
+      "id": "harina",
+      "nombre": "Harina de trigo",
+      "unidad": "kg",
+      "referencia": 1,
+      "mercadona": {
+        "id": "29100",
+        "cantidad": 1
+      },
+      "consum": {
+        "id": "34091",
+        "cantidad": 1
+      },
+      "categoria": "despensa"
+    },
+    {
+      "id": "cafe",
+      "nombre": "Café molido natural",
+      "unidad": "kg",
+      "referencia": 0.25,
+      "mercadona": {
+        "id": "11172",
+        "cantidad": 0.25
+      },
+      "consum": {
+        "id": "5627",
+        "cantidad": 0.25
+      },
+      "categoria": "despensa"
+    },
+    {
+      "id": "agua",
+      "nombre": "Agua mineral (6 botellas de 1,5 L)",
+      "unidad": "L",
+      "referencia": 9,
+      "mercadona": {
+        "id": "28472",
+        "cantidad": 1.5
+      },
+      "consum": {
+        "id": "5885",
+        "cantidad": 1.5
+      },
+      "categoria": "despensa"
+    },
+    {
+      "id": "leche",
+      "nombre": "Leche entera",
+      "unidad": "L",
+      "referencia": 1,
+      "mercadona": {
+        "id": "10380",
+        "cantidad": 1
+      },
+      "consum": {
+        "id": "5931",
+        "cantidad": 1
+      },
+      "categoria": "lacteos"
+    },
+    {
+      "id": "huevos",
+      "nombre": "Huevos L",
+      "unidad": "docena",
+      "referencia": 1,
+      "mercadona": {
+        "id": "31504",
+        "cantidad": 1
+      },
+      "consum": {
+        "id": "6103",
+        "cantidad": 1
+      },
+      "categoria": "lacteos"
+    },
+    {
+      "id": "yogur",
+      "nombre": "Yogur natural",
+      "unidad": "kg",
+      "referencia": 0.5,
+      "mercadona": {
+        "id": "22313",
+        "cantidad": 0.75
+      },
+      "consum": {
+        "id": "23824",
+        "cantidad": 0.5
+      },
+      "categoria": "lacteos"
+    },
+    {
+      "id": "platano",
+      "nombre": "Plátano de Canarias",
+      "categoria": "fruta",
+      "unidad": "kg",
+      "referencia": 1,
+      "porKilo": true,
+      "mercadona": {
+        "id": "3819"
+      },
+      "consum": {
+        "id": "4687"
+      }
+    },
+    {
+      "id": "banana",
+      "nombre": "Banana",
+      "categoria": "fruta",
+      "unidad": "kg",
+      "referencia": 1,
+      "porKilo": true,
+      "mercadona": {
+        "id": "3824"
+      },
+      "consum": {
+        "id": "16983"
+      }
+    },
+    {
+      "id": "naranja",
+      "nombre": "Naranja de mesa",
+      "categoria": "fruta",
+      "unidad": "kg",
+      "referencia": 1,
+      "porKilo": true,
+      "mercadona": {
+        "id": "3235"
+      },
+      "consum": {
+        "id": "10182"
+      }
+    },
+    {
+      "id": "mandarina",
+      "nombre": "Mandarina",
+      "categoria": "fruta",
+      "unidad": "kg",
+      "referencia": 1,
+      "porKilo": true,
+      "mercadona": {
+        "id": "3238"
+      },
+      "consum": {
+        "id": "5081"
+      }
+    },
+    {
+      "id": "limon",
+      "nombre": "Limón",
+      "categoria": "fruta",
+      "unidad": "kg",
+      "referencia": 1,
+      "porKilo": true,
+      "mercadona": {
+        "id": "3210"
+      },
+      "consum": {
+        "id": "4898"
+      }
+    },
+    {
+      "id": "uva",
+      "nombre": "Uva blanca sin semillas",
+      "categoria": "fruta",
+      "unidad": "kg",
+      "referencia": 1,
+      "porKilo": true,
+      "mercadona": {
+        "id": "3313"
+      },
+      "consum": {
+        "id": "5296"
+      }
+    },
+    {
+      "id": "patata",
+      "nombre": "Patata (malla de 3 kg)",
+      "categoria": "verdura",
+      "unidad": "kg",
+      "referencia": 1,
+      "porKilo": true,
+      "mercadona": {
+        "id": "69166"
+      },
+      "consum": {
+        "id": "9855"
+      }
+    },
+    {
+      "id": "lechuga",
+      "nombre": "Lechuga iceberg",
+      "categoria": "verdura",
+      "unidad": "pieza",
+      "referencia": 1,
+      "mercadona": {
+        "id": "68130",
+        "cantidad": 1
+      },
+      "consum": {
+        "id": "4710",
+        "cantidad": 1
+      }
+    },
+    {
+      "id": "brocoli",
+      "nombre": "Brócoli",
+      "categoria": "verdura",
+      "unidad": "kg",
+      "referencia": 1,
+      "porKilo": true,
+      "mercadona": {
+        "id": "69580"
+      },
+      "consum": {
+        "id": "5252"
+      }
+    },
+    {
+      "id": "berenjena",
+      "nombre": "Berenjena",
+      "categoria": "verdura",
+      "unidad": "kg",
+      "referencia": 1,
+      "porKilo": true,
+      "mercadona": {
+        "id": "69326"
+      },
+      "consum": {
+        "id": "5354"
+      }
+    },
+    {
+      "id": "papel",
+      "nombre": "Papel higiénico doble capa",
+      "unidad": "rollo",
+      "referencia": 12,
+      "mercadona": {
+        "id": "47835",
+        "cantidad": 12
+      },
+      "consum": {
+        "id": "6804",
+        "cantidad": 12
+      },
+      "categoria": "hogar"
+    },
+    {
+      "id": "lavavajillas",
+      "nombre": "Lavavajillas a mano",
+      "unidad": "L",
+      "referencia": 1.3,
+      "mercadona": {
+        "id": "42441",
+        "cantidad": 1.3
+      },
+      "consum": {
+        "id": "33328",
+        "cantidad": 1.3
+      },
+      "categoria": "hogar"
+    }
+  ],
+  "categorias": {
+    "despensa": "Despensa",
+    "lacteos": "Lácteos y huevos",
+    "fruta": "Fruta",
+    "verdura": "Verdura",
+    "hogar": "Hogar y limpieza"
+  }
 }
