@@ -218,7 +218,7 @@ select {
   transition: background-color 160ms var(--ease);
 }
 
-.opciones button:hover:not(:disabled) {
+.opciones button:hover:not(:disabled):not([aria-pressed="true"]) {
   background: var(--surface-2);
 }
 

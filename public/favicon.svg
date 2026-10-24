@@ -40,8 +40,8 @@
 
   <!-- guiño -->
   <g class="wink">
-    <path class="thin" d="M216 176 C226 164 246 164 256 176"/>
-    <path class="thin" d="M218 184 L210 190 M254 182 L262 188"/>
+    <path class="ln" fill="none" d="M214 172 Q236 190 258 172"/>
+    <path class="thin" d="M256 174 L264 166"/>
   </g>
 
   <!-- mejillas -->
@@ -65,9 +65,6 @@
   <path class="ln" fill="#fff3dc" d="M188 290 C186 312 192 336 202 352 C212 336 220 312 216 290 C206 296 196 296 188 290 Z"/>
   <path class="thin" d="M200 306 L202 330"/>
 
-  <!-- pezuña junto a la boca para chivarse -->
-  <path class="ln" fill="#fff3dc" d="M240 240 C254 226 278 228 282 246 C286 262 272 278 256 276 C242 274 232 256 240 240 Z"/>
-  <path class="ln" fill="#6b4a34" d="M256 276 C270 278 284 266 282 250 L266 250 C268 262 262 272 256 276 Z"/>
 
   <!-- bocadillo con € -->
   <g class="bubble">
