@@ -8,8 +8,10 @@ Un proyecto de [lasapaixa.com](https://lasapaixa.com), hecho por [Alicia Ruiz](h
 
 | Dato | Fuente | Cómo llega a la web |
 | --- | --- | --- |
-| Precio de la luz (PVPC) hora a hora | [Red Eléctrica de España, REData](https://www.ree.es/es/datos/apidata) | El navegador lo pide en directo. |
-| Precio de cada gasolinera | [Ministerio para la Transición Ecológica](https://geoportalgasolineras.es/) | `scripts/build-data.mjs` lo descarga y compacta cada 30 min (la API completa pesa 12 MB). |
+| Precio de la luz (PVPC) hora a hora | [Red Eléctrica de España, REData](https://www.ree.es/es/apidatos) | El navegador lo pide en directo. |
+| Precio de cada gasolinera | [Ministerio para la Transición Ecológica](https://geoportalgasolineras.es/geoportal-instalaciones/Inicio) | `scripts/build-data.mjs` lo descarga y compacta cada 30 min (la API completa pesa 12 MB). |
+| Coordenadas de cada código postal | [GeoNames](https://download.geonames.org/export/zip/) (CC BY 4.0) | El mismo script genera `codigos-postales.json`. |
+| Mapa | [OpenStreetMap](https://www.openstreetmap.org/copyright) con Leaflet | Se carga solo al mostrar resultados. |
 | Histórico diario de la luz | Automatización en Boost.space (cada día a las 20:45) | El mismo script lo lee con el token y publica `historico.json`, sin exponer el token. |
 
 ## En local

@@ -18,6 +18,7 @@ export interface Estacion {
   municipio: string;
   provincia: string;
   horario: string;
+  cp: string;
   precios: Record<Combustible, number | null>;
 }
 
@@ -27,7 +28,7 @@ export interface DatosGasolina {
   estaciones: Estacion[];
 }
 
-type Fila = [number, number, string, string, string, string, string, ...(number | null)[]];
+type Fila = [number, number, string, string, string, string, string, string, ...(number | null)[]];
 
 let cache: Promise<DatosGasolina> | null = null;
 
@@ -40,7 +41,7 @@ export function cargarGasolineras(): Promise<DatosGasolina> {
     .then((json: { actualizado: string; mediaNacional: DatosGasolina["mediaNacional"]; estaciones: Fila[] }) => ({
       actualizado: json.actualizado,
       mediaNacional: json.mediaNacional,
-      estaciones: json.estaciones.map(([lat, lon, rotulo, direccion, municipio, provincia, horario, g95, g98, diesel, glp]) => ({
+      estaciones: json.estaciones.map(([lat, lon, rotulo, direccion, municipio, provincia, horario, cp, g95, g98, diesel, glp]) => ({
         lat,
         lon,
         rotulo,
@@ -48,6 +49,7 @@ export function cargarGasolineras(): Promise<DatosGasolina> {
         municipio,
         provincia,
         horario,
+        cp,
         precios: { g95: g95 ?? null, g98: g98 ?? null, diesel: diesel ?? null, glp: glp ?? null },
       })),
     }));
@@ -102,6 +104,46 @@ export function municipios(datos: DatosGasolina): Municipio[] {
   return [...acc.values()]
     .map(({ nombre, provincia, lat, lon, n }) => ({ nombre, provincia, lat: lat / n, lon: lon / n }))
     .sort((a, b) => a.nombre.localeCompare(b.nombre, "es"));
+}
+
+type TablaCP = Record<string, [number, number, string]>;
+let cacheCP: Promise<TablaCP> | null = null;
+
+/** Centro de cada código postal (GeoNames), generado por scripts/build-data.mjs. */
+export function cargarCodigosPostales(): Promise<TablaCP> {
+  cacheCP ??= fetch(`${import.meta.env.BASE_URL}data/codigos-postales.json`).then((r) => {
+    if (!r.ok) throw new Error("No se han podido cargar los códigos postales");
+    return r.json();
+  });
+  cacheCP.catch(() => (cacheCP = null));
+  return cacheCP;
+}
+
+export interface Lugar {
+  lat: number;
+  lon: number;
+  nombre: string;
+}
+
+export const esCodigoPostal = (texto: string) => /^\d{5}$/.test(texto.trim());
+
+/** Busca un código postal ("29007") o un municipio tal como sale en la lista ("Málaga (Málaga)" o "Málaga"). */
+export async function buscarLugar(texto: string, lista: Municipio[]): Promise<Lugar | null> {
+  const t = texto.trim();
+  if (esCodigoPostal(t)) {
+    const cp = (await cargarCodigosPostales())[t];
+    return cp ? { lat: cp[0], lon: cp[1], nombre: `${t}, ${cp[2]}` } : null;
+  }
+  const normal = (s: string) =>
+    s
+      .toLocaleLowerCase("es-ES")
+      .normalize("NFD")
+      .replace(/\p{Diacritic}/gu, "");
+  const buscado = normal(t);
+  const m =
+    lista.find((x) => normal(`${x.nombre} (${x.provincia})`) === buscado) ??
+    lista.find((x) => normal(x.nombre) === buscado);
+  return m ? { lat: m.lat, lon: m.lon, nombre: bonito(m.nombre) } : null;
 }
 
 /** Los rótulos y municipios llegan en mayúsculas: "REPSOL" → "Repsol". */

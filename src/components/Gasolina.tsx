@@ -2,25 +2,23 @@ import { useMemo, useState } from "react";
 import { eurLitro, euros, km } from "../lib/formato";
 import {
   bonito,
+  buscarLugar,
   cargarGasolineras,
   cercanas,
   COMBUSTIBLES,
+  esCodigoPostal,
   municipios,
   type Combustible,
   type DatosGasolina,
+  type Lugar as Punto,
   type Municipio,
 } from "../lib/gasolina";
 import { useAparece } from "../lib/useAparece";
+import { Mapa } from "./Mapa";
 import "./Gasolina.css";
 
 const RADIOS = [5, 10, 25];
 const DEPOSITO = 50;
-
-interface Punto {
-  lat: number;
-  lon: number;
-  nombre: string;
-}
 
 export function Gasolina() {
   const [datos, setDatos] = useState<DatosGasolina | null>(null);
@@ -47,7 +45,7 @@ export function Gasolina() {
 
   async function usarUbicacion() {
     if (!("geolocation" in navigator)) {
-      setError("Tu navegador no comparte la ubicación. Escribe tu municipio.");
+      setError("Tu navegador no comparte la ubicación. Escribe tu código postal.");
       return;
     }
     setCargando(true);
@@ -61,7 +59,7 @@ export function Gasolina() {
     setCargando(false);
     if (!d) return;
     if (!pos) {
-      setError("No nos has dado permiso para ver tu ubicación. Escribe tu municipio y listo.");
+      setError("Sin permiso para ver tu ubicación. Escribe tu código postal y listo.");
       return;
     }
     setPunto({ lat: pos.coords.latitude, lon: pos.coords.longitude, nombre: "tu ubicación" });
@@ -69,10 +67,32 @@ export function Gasolina() {
 
   const listaMunicipios = useMemo(() => (datos ? municipios(datos) : []), [datos]);
 
-  function elegirMunicipio(texto: string) {
+  // Al escribir: se busca solo en cuanto hay un código postal completo o un municipio de la lista.
+  async function escribir(texto: string) {
     setBusqueda(texto);
-    const m = listaMunicipios.find((x) => etiqueta(x) === texto);
-    if (m) setPunto({ lat: m.lat, lon: m.lon, nombre: bonito(m.nombre) });
+    setError(null);
+    if (esCodigoPostal(texto) || listaMunicipios.some((m) => etiqueta(m) === texto)) await buscar(texto);
+  }
+
+  async function buscar(texto: string) {
+    if (!texto.trim()) return;
+    const d = await asegurarDatos();
+    if (!d) return;
+    try {
+      const lugar = await buscarLugar(texto, municipios(d));
+      if (lugar) {
+        setError(null);
+        setPunto(lugar);
+      } else {
+        setError(
+          esCodigoPostal(texto)
+            ? `No encontramos el código postal ${texto.trim()}. ¿Seguro que está bien?`
+            : "No encontramos ese municipio. Elige uno de la lista o escribe tu código postal.",
+        );
+      }
+    } catch {
+      setError("No hemos podido cargar los códigos postales. Prueba otra vez en un momento.");
+    }
   }
 
   const resultados = useMemo(
@@ -110,24 +130,38 @@ export function Gasolina() {
             {cargando ? "Buscando…" : "Usar mi ubicación"}
           </button>
           <span className="gas-o">o</span>
-          <label className="gas-buscar">
-            <span className="visually-hidden">Municipio</span>
-            <input
-              type="search"
-              list="municipios"
-              placeholder="Escribe tu municipio"
-              value={busqueda}
-              onFocus={asegurarDatos}
-              onChange={(e) => elegirMunicipio(e.target.value)}
-            />
+          <form
+            className="gas-buscar"
+            role="search"
+            onSubmit={(e) => {
+              e.preventDefault();
+              void buscar(busqueda);
+            }}
+          >
+            <label>
+              <span className="visually-hidden">Código postal o municipio</span>
+              <input
+                type="search"
+                list="municipios"
+                inputMode="search"
+                autoComplete="postal-code"
+                placeholder="Código postal o municipio"
+                value={busqueda}
+                onFocus={asegurarDatos}
+                onChange={(e) => void escribir(e.target.value)}
+              />
+            </label>
+            <button className="btn secundario" type="submit">
+              Buscar
+            </button>
             <datalist id="municipios">
               {listaMunicipios.map((m) => (
                 <option key={`${m.nombre}|${m.provincia}`} value={etiqueta(m)} />
               ))}
             </datalist>
-          </label>
+          </form>
         </div>
-        {error && <p className="gas-error">{error}</p>}
+        {error && <p className="gas-aviso">{error}</p>}
       </div>
 
       {!punto && <MediasHoy datos={datos} />}
@@ -144,7 +178,7 @@ export function Gasolina() {
 
       <p className="fuente">
         Fuente:{" "}
-        <a href="https://geoportalgasolineras.es/" target="_blank" rel="noreferrer">
+        <a href="https://geoportalgasolineras.es/geoportal-instalaciones/Inicio" target="_blank" rel="noreferrer">
           Ministerio para la Transición Ecológica y el Reto Demográfico
         </a>
         {datos ? `, precios publicados el ${datos.actualizado.replace(" ", " a las ").slice(0, -3)}` : ""}. Se
@@ -237,6 +271,8 @@ function Resultados({
           </a>
         </div>
       </article>
+
+      <Mapa punto={punto} estaciones={lista.slice(0, 10)} />
 
       {resto.length > 0 && (
         <table className="gas-lista">

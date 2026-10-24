@@ -15,8 +15,14 @@
 }
 
 .gas-buscar {
-  flex: 1 1 240px;
-  max-width: 420px;
+  display: flex;
+  gap: 8px;
+  flex: 1 1 300px;
+  max-width: 480px;
+}
+
+.gas-buscar label {
+  flex: 1;
 }
 
 .gas-buscar input {
@@ -33,7 +39,10 @@
   outline: none;
 }
 
-.gas-error,
+.gas-aviso {
+  font-weight: 600;
+}
+
 .gas-vacio {
   color: var(--caro);
   font-weight: 600;

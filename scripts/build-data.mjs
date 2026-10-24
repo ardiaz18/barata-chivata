@@ -1,14 +1,18 @@
 // Genera los datos estáticos que la web no puede pedir en directo:
 //  - public/data/gasolineras.json: precios oficiales del Ministerio, compactados
 //    (la API completa pesa ~12 MB y no va comprimida).
+//  - public/data/codigos-postales.json: centro de cada código postal (GeoNames, CC BY 4.0),
+//    para buscar gasolineras escribiendo el código postal.
 //  - public/data/historico.json: histórico diario calculado por la automatización
 //    de Boost.space. Solo si existe BOOSTSPACE_API_TOKEN, para no exponer el token.
 // Se ejecuta en GitHub Actions cada 30 minutos y en local con `npm run data`.
 import { mkdir, writeFile } from "node:fs/promises";
+import { strFromU8, unzipSync } from "fflate";
 
 const OUT = new URL("../public/data/", import.meta.url);
 const MINETUR =
   "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/";
+const GEONAMES = "https://download.geonames.org/export/zip/ES.zip";
 const BOOSTSPACE = "https://aliciaruiz.boost.space/api/module/9/item";
 const CAMPOS_BOOSTSPACE = {
   3017: "fecha",
@@ -58,6 +62,7 @@ async function gasolineras() {
       e["Municipio"].trim(),
       e["Provincia"].trim(),
       e["Horario"].trim(),
+      e["C.P."].trim(),
       ...precios,
     ]);
   }
@@ -67,10 +72,35 @@ async function gasolineras() {
   );
   return {
     actualizado: Fecha,
-    campos: ["lat", "lon", "rotulo", "direccion", "municipio", "provincia", "horario", ...claves],
+    campos: ["lat", "lon", "rotulo", "direccion", "municipio", "provincia", "horario", "cp", ...claves],
     mediaNacional: media,
     estaciones,
   };
+}
+
+/** { "29007": [lat, lon, "Málaga"] }. Un código postal puede cubrir varias localidades: se promedian. */
+async function codigosPostales() {
+  const r = await fetch(GEONAMES);
+  if (!r.ok) throw new Error(`GeoNames respondió ${r.status}`);
+  const zip = unzipSync(new Uint8Array(await r.arrayBuffer()));
+  const acc = new Map();
+  for (const linea of strFromU8(zip["ES.txt"]).split("\n")) {
+    const c = linea.split("\t");
+    if (c.length < 11) continue;
+    const [, cp, lugar, , , provincia] = c;
+    const lat = Number(c[9]);
+    const lon = Number(c[10]);
+    const v = acc.get(cp) ?? { lat: 0, lon: 0, n: 0, lugar, provincia };
+    v.lat += lat;
+    v.lon += lon;
+    v.n += 1;
+    acc.set(cp, v);
+  }
+  const out = {};
+  for (const [cp, v] of acc) {
+    out[cp] = [Math.round((v.lat / v.n) * 1e4) / 1e4, Math.round((v.lon / v.n) * 1e4) / 1e4, v.provincia];
+  }
+  return out;
 }
 
 async function historico(token) {
@@ -97,6 +127,10 @@ await mkdir(OUT, { recursive: true });
 const gas = await gasolineras();
 await writeFile(new URL("gasolineras.json", OUT), JSON.stringify(gas));
 console.log(`gasolineras.json: ${gas.estaciones.length} estaciones, actualizado ${gas.actualizado}`);
+
+const cps = await codigosPostales();
+await writeFile(new URL("codigos-postales.json", OUT), JSON.stringify(cps));
+console.log(`codigos-postales.json: ${Object.keys(cps).length} códigos`);
 
 const token = process.env.BOOSTSPACE_API_TOKEN;
 if (token) {

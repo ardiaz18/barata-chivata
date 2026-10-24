@@ -23,7 +23,7 @@ export function Fuentes() {
               Es el precio de la energía: no incluye impuestos ni el término de potencia de tu factura. Si tienes tarifa
               de mercado libre a precio fijo, la hora te da igual.
             </p>
-            <a href="https://www.ree.es/es/datos/apidata" target="_blank" rel="noreferrer">
+            <a href="https://www.ree.es/es/apidatos" target="_blank" rel="noreferrer">
               Ver la API de Red Eléctrica
             </a>
           </article>
@@ -36,7 +36,18 @@ export function Fuentes() {
               Geoportal de gasolineras. Barata Chivata recoge la lista completa cada media hora.
             </p>
             <p>Si una gasolinera cambia el precio y aún no lo ha comunicado, puede haber una pequeña diferencia.</p>
-            <a href="https://geoportalgasolineras.es/" target="_blank" rel="noreferrer">
+            <p>
+              Para buscar por código postal usamos las coordenadas de{" "}
+              <a href="https://www.geonames.org/" target="_blank" rel="noreferrer">
+                GeoNames
+              </a>{" "}
+              (CC BY 4.0), y el mapa es de{" "}
+              <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">
+                OpenStreetMap
+              </a>
+              .
+            </p>
+            <a href="https://geoportalgasolineras.es/geoportal-instalaciones/Inicio" target="_blank" rel="noreferrer">
               Ver el Geoportal de gasolineras
             </a>
           </article>

@@ -1,0 +1,69 @@
+.mapa {
+  margin: 16px 0 0;
+}
+
+.mapa-caja {
+  height: clamp(320px, 55vw, 480px);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  z-index: 0;
+}
+
+.mapa figcaption {
+  margin-top: 10px;
+  font-size: var(--step-small);
+  color: var(--soft);
+}
+
+.mapa figcaption a {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Chinchetas con el precio dentro */
+.mapa-precio span {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  font: 600 14px/1 var(--text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  margin-left: 40px;
+}
+
+.mapa-precio.mejor span {
+  background: var(--barato);
+  border-color: var(--barato);
+  color: #fff;
+  font-size: 16px;
+}
+
+.mapa-tu span {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--sol);
+  border: 3px solid var(--ink);
+  font: 800 14px/1 var(--display);
+  color: var(--sol-ink);
+}
+
+.leaflet-container {
+  font-family: var(--text);
+}
+
+.leaflet-popup-content {
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.leaflet-popup-content a {
+  font-weight: 600;
+}
